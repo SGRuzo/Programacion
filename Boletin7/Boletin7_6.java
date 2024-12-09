@@ -1,94 +1,72 @@
+import java.util.Scanner;
 /**
  * Programa con una función que recibe dos elementos (tabla y valor)
- * Busca en la tabla si existe el valor, si existe devuelve el indice, sino 0.
+ * Busca en la tabla si existe el valor, si existe devuelve el indice, sino -1.
  * @version 1.0
  * @author SarayGRuzo
  */
-public class  Boletin7_6 {
+
+public class Boletin7_6 {
+
     public static void main(String[] args) {
-        //array de la tabla con los valores.
+        // Tabla con los valores ordenados
         int[] tabla = {3, 8, 15, 23, 42, 46, 56, 57, 64, 78};
-        //Valor que hay que buscar.
-        int valor = 56;
-        //Se llama a la función buscarValor para encontrar el valor en la tabla.
+
+        // Creamos el objeto Scanner
+        Scanner sc = new Scanner(System.in);
+
+        // Pedimos al usuario que introduzca el valor que quiere buscar
+        System.out.println("Introduce un número para buscar en la tabla: ");
+        int valor = sc.nextInt(); // Leemos el numero
+
+        // Llamamos a la funcion buscarValor para realizar la busqueda binaria
         int resultado = buscarValor(tabla, valor);
-        //Comprobar el resultado
+
+        // Mostramos el resultado
         if (resultado != -1) {
-            //El valor fue encontrado.
-            System.out.println("El valor " + valor + " se encuentra en el indice " + resultado);
+            // Si la funcion devuelve un indice válido, el valor fue encontrado
+            System.out.println("El valor " + valor + " se encuentra en el índice " + resultado);
         } else {
-            //El valor no esta
+            // Si la función devolvió -1, el valor no está en la tabla
             System.out.println("El valor " + valor + " no se encuentra en la tabla.");
         }
     }
 
     /**
-     * Busca el valor en el array partiendo la tabla
+     * Busqueda binaria en un array ordenado para encontrar un valor.
      *
-     * @param tabla Array para buscar valor.
-     * @param valor a buscar en el array.
-     * @return Si existe=indice del valor, si no=-1.
+     * @param tabla Array de enteros ordenados donde se busca.
+     * @param valor Valor que queremos buscar en el array.
+     * @return El índice del valor si se encuentra; -1 si no está en el array.
      */
     public static int buscarValor(int[] tabla, int valor) {
+        // Variables que delimitan el rango de búsqueda:
+        int inicio = 0;               // Índice inicial (al comienzo de la tabla)
+        int fin = tabla.length - 1;   // Índice final (último elemento de la tabla)
 
-        int inicio = 0;
-        int fin = tabla.length - 1;
-        int mitad;
-
+        // Mientras haya un rango válido en la búsqueda
         while (inicio <= fin) {
-            // Calcular la posición de la mitad actual
-            mitad = inicio + fin / 2;
-
-            // Verificar si el valor está en la posición actual
-            if (tabla[mitad] == valor) {
-                return mitad;
-            }
-
-            // Dividir la mitad en dos sub-mitades
-            int mitad1 = inicio + mitad / 2;
-            int mitad2 = mitad + fin  / 2;
-
-            if (valor == mitad1) {
-                // El valor está en la primera mitad
-                fin = mitad; // Reducir el rango a la primera mitad
-            } if (valor == mitad2) {
-                // El valor está en la segunda mitad
-                fin = mitad; // Reducir el rango a la segunda mitad
-            } else {
-                // El valor está en la segunda sub-mitad
-                inicio = mitad + 1; // Reducir el rango a la segunda sub-mitad
-            }
-        }
-
-        return -1; // Valor no encontrado
-    }
-}
-
-
-    /**
-        //Defino el inicio y el final
-        int inicio = 0;
-        int fin = tabla.length - 1;
-
-        //Mientras la busqueda este dentro.
-        while (inicio <= fin) {
-            //calulamos la mitad
+            // Calcular el índice del elemento central del rango actual
             int mitad = (inicio + fin) / 2;
-            //Si es igual a la mitad se devulve el indice.
+
+            // Verificamos si el valor buscado es el elemento en la posición 'mitad'
             if (tabla[mitad] == valor) {
-                return mitad;
+                return mitad; // Se encontró el valor, devolvemos su índice
             }
-            //Si es menor que la mitad, se busca en la mitad menor.
+
+            // Si el valor buscado es menor que el elemento en 'mitad':
             if (tabla[mitad] > valor) {
-                fin = mitad -1;
+                // Ajustar el rango de búsqueda para descartar la mitad derecha
+                fin = mitad - 1;
             }
-            //Si es mayor que la mitad, se busca en la mitad superior.
+            // Si el valor buscado es mayor que el elemento en 'mitad':
             else {
-                inicio = mitad +1;
+                // Ajustar el rango de búsqueda para descartar la mitad izquierda
+                inicio = mitad + 1;
             }
         }
-        //Si no está el valor, devuelve -1.
+
+        // Si el bucle termina sin encontrar el valor, devolver -1
         return -1;
     }
 }
-//tabla/2 esto divide la tabla en primMitad y segMitad. Si valor<segMitad encontonces valor=primMitad y se convierte en mitad, volvemos al inicio y mitad/2 saca primMitad ysegMitad, se repite el proceso hasta dar con el indice del valor**/
