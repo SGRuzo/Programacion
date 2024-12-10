@@ -1,6 +1,6 @@
 /**
  * Programa con una función que recibe dos elementos (tabla y valor)
- * Busca en la tabla si existe el valor, si existe devuelve el indice, sino 0.
+ * Busca en la tabla si existe el valor, si existe devuelve el indice, sino -1.
  * @version 1.0
  * @author SarayGRuzo
  */
